@@ -22,7 +22,7 @@ class LoadBookData implements FixtureInterface, ContainerAwareInterface
     private $series = array();
 
     public function __construct(){
-        $this->pathToData = __DIR__ . "../data/";
+        $this->pathToData = __DIR__ . "/data/";
     }
 
     /**
