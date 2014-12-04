@@ -18,9 +18,9 @@ class BookController extends Controller
 
         $bookRepository = $this->getDoctrine()->getRepository('BdlocAppBundle:Book');
         $book = new Book();
-        $book = $bookRepository->findOneById($id);
+        $book = $bookRepository->getAllInformation($id);
 
-        $params['book'] = $book;
+        $params['book'] = $book[0];
 
         return $this->render("book/detail.html.twig", $params);
     }

@@ -70,13 +70,13 @@ class UserController extends Controller
 
             }
 
-            /*// Auto-login (Attention au nom du firewall : dans ce cas, c'est secured_area cf: security.yml)
+            // Auto-login (Attention au nom du firewall : dans ce cas, c'est secured_area cf: security.yml)
             $token = new UsernamePasswordToken($user, $user->getPassword(), "secured_area", $user->getRoles());
             $this->get("security.context")->setToken($token);
 
             // Fire the login event
             $event = new InteractiveLoginEvent($request, $token);
-            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);*/
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
             // On redirige vers une page d'information
             return $this->redirect($this->generateUrl('bdloc_app_default_home', $params));

@@ -10,7 +10,27 @@
 			   		</div>
 					<h1>{{ book.title }}</h1>
 					<div class="description">
-						<p>De {{ book.illustrator.firstName }} {{ book.illustrator.lastName }}</p>
+					{% if book.illustrator %}
+						<p>Auteur : {{ book.illustrator.firstName }} {{ book.illustrator.lastName }} 
+						{% if book.illustrator.aka is not null %}
+							alias {{ book.illustrator.aka }}</p>
+						{% endif %}
+					{% endif %}
+					
+					{% if book.scenarist %}
+						<p>Scénariste : {{ book.scenarist.firstName }} {{ book.scenarist.lastName }}
+						{% if book.scenarist.aka is not null %}
+							alias {{ book.scenarist.aka }}</p>
+						{% endif %}
+						</p>
+					{% endif %}
+					
+					{% if book.colorist %}
+						<p>Déssinateur : {{ book.colorist.firstName }} {{ book.colorist.lastName }}</p>
+						{% if book.colorist.aka is not null %}
+							alias {{ book.colorist.aka }}</p>
+						{% endif %}
+					{% endif %}
 					</div>
 
 				{% else %}
