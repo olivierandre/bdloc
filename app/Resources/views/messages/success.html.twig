@@ -1,0 +1,27 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+    <h1>{{ titleMessage }}</h1>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6 col-xs-offset-3 message">
+
+				{% for flashMessage in app.session.flashbag.get('message') %}
+				
+			    <div class="alert alert-success">
+			        <p>{{ flashMessage }}</p>
+			    </div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12" id="gestionBouton">
+				<a class="retour" href="{{ path('bdloc_app_default_home') }}">Retour accueil</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

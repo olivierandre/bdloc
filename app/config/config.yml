@@ -28,6 +28,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources: ['bootstrap_3_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -73,3 +75,8 @@ swiftmailer:
     port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
+
+services:
+    my_mailer:
+        class: Bdloc\AppBundle\Service\Mailer
+        arguments:  [sendmail]

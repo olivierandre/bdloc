@@ -3,11 +3,45 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Bdloc !{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        {% stylesheets 'css/*.css' filter='cssrewrite' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+        {% endstylesheets %}
+        <link href="{{ asset('css/bootstrap.css.map') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/bootstrap-theme.css.map') }}" type="text/css" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+
+        <header id="header">
+            <div class="container">
+                <div class="row">
+                    <div id="title" class="col-xs-12 col-sm-3">
+                        <h1><a href="{{ path('bdloc_app_default_home') }}" title="Bd location">bdloc</h1>
+                    </div>
+
+                    <nav id="nav" class="col-xs-12 col-sm-9">
+                        
+                        {% if app.user %}
+                        <li><a href="#">Yo {{ app.user.username }} !</a></li>
+                        <li><a href="{{ path('logout') }}" title="Deconnexion">Se déconnecter</a></li>
+                        {% else %}
+                        <li><a href="{{ path('bdloc_app_user_register') }}" title="Inscription">S'inscrire</a></li>
+                        <li><a href="{{ path('bdloc_app_security_login') }}" title="Connexion">Se connecter</a></li>
+                        {% endif %}
+                    </nav>
+
+                </div>
+            </div>
+        </header>
+
         {% block main_content %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        <script src="{{ asset('js/jquery-2.1.1.min.js')}}"></script>
+        <script src="{{ asset('js//jquery-ui/jquery-ui.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
+        {% endblock %}
     </body>
 </html>

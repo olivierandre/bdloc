@@ -1,0 +1,182 @@
+//	Variables
+vertIndex = #a5d5b2
+retourAccueil = rgba(190, 144, 212, .5)
+retourAccueilHover = rgba(190, 144, 212, 1)
+silver = rgb(189, 195, 199)
+carrot = rgb(230, 126, 34)
+$keyframe-inscription = inscription
+$keyframe-scale = scale
+
+//	Functions
+animation(propriete, arguments)
+    -webkit-animation-{propriete} arguments
+    -khtml-animation-{propriete} arguments
+    -moz-animation-{propriete} arguments
+    -ms-animation-{propriete} arguments
+    -o-animation-{propriete} arguments
+    animation-{propriete} arguments
+    
+transition(arguments...)
+	-webkit-transition arguments
+	-khtml-transition arguments
+	-moz-transition arguments
+	-ms-transition arguments
+	-o-transition arguments
+	transition arguments
+	
+transform(arguments...)
+	-webkit-transform arguments
+	-khtml-transform arguments
+	-moz-transform arguments
+	-ms-transform arguments
+	-o-transform arguments
+	transform
+	
+border-image(arguments...)
+	-webkit-border-image arguments
+    -moz-border-image arguments
+    -o-border-image arguments
+    border-image arguments
+    
+box-sizing()
+	-webkit-box-sizing border-box
+    -moz-box-sizing border-box
+    box-sizing border-box
+
+filter(arguments)
+	-webkit-filter arguments
+    filter arguments
+    
+//  CSS
+/*
+ * Général
+ */
+
+h1, h2, h3, h4, h5, h6,
+span, input, p, a, button, label, select,
+figcaption, textarea, ul, li, table, td, th
+	font-family Lato, sans-serif, Calibri
+
+h1, h2, h3, h4, h5, h6, select, a, button 
+    text-transform uppercase
+    text-align center
+
+a
+    text-decoration none
+    cursor pointer
+    padding 10px 30px
+    border 0
+    color black
+    &:hover
+        text-decoration none
+        color black     
+
+input
+	outline none
+
+input[type=submit], button
+	text-transform uppercase
+	cursor pointer
+	outline none
+	padding 10px 30px
+	border 0
+	color white
+
+.clearfix
+    clear both
+    
+#gestionBouton
+	margin-top 100px
+
+.retour
+	background retourAccueil
+	color white
+	transition background .3s
+	display block
+	width 200px
+	margin auto
+	
+.retour:hover
+	background retourAccueilHover
+
+ 
+/*
+ * Header
+ */
+#header
+	background silver
+	
+#nav
+ 	text-align right
+ 	margin-top 25px
+
+#nav li
+	display inline
+	font-size 20px
+
+/*
+ * Accueil
+ */
+#inscription
+	margin-top 50px
+	
+#inscription a
+	display block
+	width 500px
+	background carrot
+	margin auto
+	color white
+	font-size 30px
+	
+#inscription
+	position relative
+	animation('delay', .3s)
+	animation('duration', 2s)
+	animation('name', inscription)
+	animation('fill-mode', backwards) 
+
+/*
+ * Detail
+ */
+.detail
+	margin-top 50px
+
+
+/*
+ * Formulaire
+ */
+form li
+	text-align right
+	
+
+
+/*
+ * Message
+ */
+.message
+	text-align center
+	margin-top 100px
+	
+
+/*
+ * Animation
+ */	
+.scale
+	animation('delay', .3s)
+	animation('duration', 2s)
+	animation('name', scale)
+	animation('fill-mode', backwards) 
+
+@keyframes {$keyframe-inscription}
+	0%
+		left -2000px
+	100%
+		left 0px
+		
+@keyframes {$keyframe-scale}
+	0%
+		transform scale(1)
+	50%
+		transform scale(1.5)
+	100%
+		transform scale(1)

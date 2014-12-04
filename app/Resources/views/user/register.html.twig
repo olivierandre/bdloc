@@ -1,0 +1,18 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+    <h1>Inscription !</h1>
+
+<div class="container">
+		<div class="row">
+			<div class="col-xs-6">
+
+				{{ form_start(inscriptionForm, {'attr': {'novalidate' : 'novalidate'}}) }}
+
+				{{ form_end(inscriptionForm)}}
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
