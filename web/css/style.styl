@@ -4,6 +4,8 @@ retourAccueil = rgba(190, 144, 212, .5)
 retourAccueilHover = rgba(190, 144, 212, 1)
 silver = rgb(189, 195, 199)
 carrot = rgb(230, 126, 34)
+turquoise = rgba(26, 188, 156, .5)
+turquoiseHover = rgba(26, 188, 156,1.0)
 $keyframe-inscription = inscription
 $keyframe-scale = scale
 
@@ -140,7 +142,24 @@ input[type=submit], button
  */
 .detail
 	margin-top 50px
+	
+#image
+	text-align center
+	
+.detail #image
+	margin-bottom 50px
 
+#button a, #button button
+	display block
+	margin-bottom 20px
+	
+#button #cart 
+	width 100%
+	background turquoise
+	transition background .3s
+	
+#button #cart:hover
+	background turquoiseHover
 
 /*
  * Formulaire
@@ -148,15 +167,12 @@ input[type=submit], button
 form li
 	text-align right
 	
-
-
 /*
  * Message
  */
 .message
 	text-align center
 	margin-top 100px
-	
 
 /*
  * Animation

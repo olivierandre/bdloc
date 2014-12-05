@@ -144,6 +144,11 @@ class User implements UserInterface
      */
     private $dateModified;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Bdloc\AppBundle\Entity\Cart", mappedBy="user")
+     */
+    private $cart;
+
 
     /**
      * Get id
@@ -479,7 +484,7 @@ class User implements UserInterface
 
     //  Appel des méthodes de l'interface 'UserInterface'
     public function eraseCredentials() {
-        $this->password = null;
+        //$this->password = null;
     }
 
     /**
@@ -496,5 +501,45 @@ class User implements UserInterface
      */
     public function beforeEdit() {
         $this->setDateModified(new \DateTime());
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cart = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add cart
+     *
+     * @param \Bdloc\AppBundle\Entity\Cart $cart
+     * @return User
+     */
+    public function addCart(\Bdloc\AppBundle\Entity\Cart $cart)
+    {
+        $this->cart[] = $cart;
+
+        return $this;
+    }
+
+    /**
+     * Remove cart
+     *
+     * @param \Bdloc\AppBundle\Entity\Cart $cart
+     */
+    public function removeCart(\Bdloc\AppBundle\Entity\Cart $cart)
+    {
+        $this->cart->removeElement($cart);
+    }
+
+    /**
+     * Get cart
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCart()
+    {
+        return $this->cart;
     }
 }

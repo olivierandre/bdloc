@@ -80,3 +80,8 @@ services:
     my_mailer:
         class: Bdloc\AppBundle\Service\Mailer
         arguments:  [sendmail]
+
+    cart_controller:
+        class: Bdloc\AppBundle\Controller\CartController
+        calls:
+            - [setContainer, ["@service_container"]]

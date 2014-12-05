@@ -1,0 +1,27 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+<div class="container">
+		<div class="row">
+
+		{% if (app.user) %}
+			<div class="affiche">
+				<h1>De la série "{{ title }}"</h1>
+
+			{% for book in books %}
+				<p>{{ book.title }}</p>
+			{% endfor %}
+		</div>
+
+		{% else %}
+			<div id="inscription" class="col-xs-12">
+				<a href="{{ path('bdloc_app_user_register') }}">Inscrivez-vous !!!</a>
+		   	</div>
+		{% endif %}
+				
+				
+			</div>
+			
+		</div>
+	</div>
+{% endblock %}

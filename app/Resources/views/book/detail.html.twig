@@ -9,7 +9,7 @@
 						<img src="{{ asset('img/covers/'~book.cover)}}" title="{{ book.title }} " />
 			   		</div>
 					<h1>{{ book.title }}</h1>
-					<div class="description">
+					<div class="description col-xs-12 col-md-6">
 					{% if book.illustrator %}
 						<p>Auteur : {{ book.illustrator.firstName }} {{ book.illustrator.lastName }} 
 						{% if book.illustrator.aka is not null %}
@@ -31,6 +31,17 @@
 							alias {{ book.colorist.aka }}</p>
 						{% endif %}
 					{% endif %}
+						
+						<p>Fait partie de la série : <a href="{{ path('bdloc_app_book_serie', {id : book.serie.id, title : book.serie.title }) }}" title="{{ book.serie.title }}">{{ book.serie.title }}</a></p>
+					</div>
+
+					<div id="button" class="col-xs-12">
+						{% if not bool %}
+						<a href="{{ path('bdloc_app_cart_addbook', {idBook : book.id }) }}"id="cart" title="Ajout panier">ajouter au panier</a>
+						{% else %}
+						<a href="{{ path('bdloc_app_cart_removebook', {idBook : book.id }) }}"id="cart" title="Retirer panier">retirer du panier</a>
+						{% endif %}
+						<a class="retour" href="{{ path('bdloc_app_default_home') }}" title="Accueil">Retour accueil</a>
 					</div>
 
 				{% else %}

@@ -34,7 +34,7 @@ class BookRepository extends EntityRepository {
             ->setParameter(':id', $id)
             ->getQuery();
 
-
-            return $query->getResult();
+            return $query->getSingleResult();
     }
+
 }

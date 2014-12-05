@@ -20,9 +20,30 @@ class BookController extends Controller
         $book = new Book();
         $book = $bookRepository->getAllInformation($id);
 
-        $params['book'] = $book[0];
+        $cartController = $this->container->get('cart_controller');
+        $bool = $cartController->isInCartAction($id);
+
+        $params['book'] = $book;
+        $params['bool'] = $bool;
 
         return $this->render("book/detail.html.twig", $params);
+    }
+
+    /**
+     * @Route("/serie/{id}/{title}")
+     */
+    public function serieAction($id, $title)
+    {
+        $params = array();
+
+        $bookRepository = $this->getDoctrine()->getRepository('BdlocAppBundle:Book');
+        $books = new Book();
+        $books = $bookRepository->findBySerie($id);
+
+        $params['books'] = $books;
+        $params['title'] = $title;
+
+        return $this->render("book/serie_liste.html.twig", $params);
     }
 
 }

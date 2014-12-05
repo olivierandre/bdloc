@@ -1,0 +1,9 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+{% for book in books %}
+
+	{{ book.id }} - {{ book.title }}
+	
+{% endfor %}
+{% endblock %}
