@@ -4,7 +4,7 @@ namespace Bdloc\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 use Bdloc\AppBundle\Entity\Book;
 use Bdloc\AppBundle\Entity\CartItem;
@@ -80,7 +80,6 @@ class CartController extends Controller
                 'cart' => $findCart)
             );
 
-
         $em = $doctrine->getManager();
         $em->remove($findItemCart);
         $em->flush();
@@ -107,6 +106,14 @@ class CartController extends Controller
         $books = $cartRepository->getCartEnCours($this->getUser());
         
         return $books;
+    }
+
+    public function getSizeCartAction() {
+        $params = array();
+        $params['size'] = count($this->getCartUserAction());
+
+        // Le template se trouve 'Bdloc/AppBundle/Resources/views/Cart'
+        return $this->render('BdlocAppBundle:Cart:panier.html.twig', $params);
     }
 
     public function isInCartAction($idBook) {

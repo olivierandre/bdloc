@@ -1,43 +1,48 @@
 class Init 
 	constructor: ->
-        button = new Button()
+        @button = new Click($('#cart'))
+        .buttonCart()
 
-class Button
-    constructor: ->
-        this.buttonCart()
+class Click
+    constructor: (@selector) ->
 
     buttonCart: ->
-        selector = $("#cart")
-        selector.on "click", ->
-            label = new Label()
-            .getLabel(this)
-            cart = new Cart()
-            cart.manageCart(selector, label)
+        $(@selector).on "click", ->
+            cart = new Cart($('#cart'))
+            cart.ajax()
             return false
             
 class Cart 
-    constructor: ->
+    constructor: (@button) ->
 
-    manageCart: (selector, label) ->
-        labelAdd = "ajouter au panier"
-        labelRemove = "retirer du panier"
-        cart = $('#panier')
-        item = parseInt(cart.text())
-
-        if label.toLowerCase() is labelAdd
-            selector.text(labelRemove)
-            cart.text(item += 1)
-        else
-            selector.text(labelAdd)
-            cart.text(item -= 1)
-
-    ajax: ->    
-
-class Label
-    constructor: ->
-
-    getLabel: (selector) ->
-        $(selector).text()
+    ajax: ->
+        $.ajax
+            url:@button.attr 'href'
+            success: (html) ->
+                addRemove = $('#addRemove')
+                panier = '#panier'
+                html = $(html)
+                cart = html.find panier
+                .text()
+                $(panier).text cart
+                newButton = html.find '#cart'
+                new Click(newButton)
+                .buttonCart()
+                addRemove.hide
+                    effect: 'slide',
+                    direction: 'left',
+                    easing: 'easeInExpo', 
+                    duration: 800
+                    complete: ->
+                        $('#cart')
+                        .remove()
+                        addRemove
+                        .prepend newButton
+                .show
+                    effect : "slide",
+                    direction :'right',
+                    easing: 'easeInExpo',
+                    duration: 800
 
 $ -> 
     init = new Init()

@@ -27,7 +27,7 @@
                         {% if app.user %}
                         <li><a href="#">Yo {{ app.user.username }} !</a></li>
                         <li><a href="{{ path('logout') }}" title="Deconnexion">Se déconnecter</a></li>
-                        <li><a href="{{ path('bdloc_app_cart_recapcart') }}" title="Panier">Panier (<span id="panier">0</span>)</a></li>
+                        <li><a href="{{ path('bdloc_app_cart_recapcart') }}" title="Panier">Panier (<span id="panier">{{ render(controller('BdlocAppBundle:Cart:getSizeCart')) }}</span>)</a></li>
                         {% else %}
                         <li><a href="{{ path('bdloc_app_user_register') }}" title="Inscription">S'inscrire</a></li>
                         <li><a href="{{ path('bdloc_app_security_login') }}" title="Connexion">Se connecter</a></li>

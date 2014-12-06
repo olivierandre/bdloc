@@ -5,7 +5,8 @@ retourAccueilHover = rgba(190, 144, 212, 1)
 silver = rgb(189, 195, 199)
 carrot = rgb(230, 126, 34)
 turquoise = rgba(26, 188, 156, .5)
-turquoiseHover = rgba(26, 188, 156,1.0)
+turquoiseHover = rgba(26, 188, 156, 1)
+vertTitreBD = rgba(194, 208, 152, 1)
 $keyframe-inscription = inscription
 $keyframe-scale = scale
 
@@ -148,17 +149,25 @@ input[type=submit], button
 	
 .detail #image
 	margin-bottom 50px
-
-#button a, #button button
-	display block
+	
+.description
+	border-width 10px 0
+	border-color vertTitreBD
+	border-style solid
 	margin-bottom 20px
 	
-#button #cart 
-	width 100%
+.description p
+	margin 0
+	padding 10px 0
+
+#button a, #addRemove a
+	display block
+	
+#addRemove #cart 
 	background turquoise
 	transition background .3s
 	
-#button #cart:hover
+#addRemove #cart:hover
 	background turquoiseHover
 
 /*
