@@ -7,15 +7,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\HttpFoundation\Response;
 
 use Bdloc\AppBundle\Form\UserType;
 use Bdloc\AppBundle\Form\InscriptionType;
 use Bdloc\AppBundle\Form\LostPasswordType;
 use Bdloc\AppBundle\Form\NewPasswordType;
+use Bdloc\AppBundle\Form\ChangePasswordType;
 
 use Bdloc\AppBundle\Entity\User;
 use Bdloc\AppBundle\Entity\LostPassword;
 use Bdloc\AppBundle\Entity\NewPassword;
+use Bdloc\AppBundle\Entity\ChangePassword;
 
 use Bdloc\AppBundle\Util\StringHelper;
 
@@ -254,4 +257,63 @@ class UserController extends Controller
 
         return $this->render($url, $params);
     }
+
+    /**
+     * @Route("/compte")
+     */
+    public function accountAction(Request $request) {
+        $params = array();
+
+        $user = new User();
+        $user = $this->getUser();
+
+        $userForm = $this->createForm(new UserType(), $user);
+        $userForm->handleRequest($request);
+
+        if($userForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $message = "Votre compte est bien à jour";
+            $params['error'] = $this->get('session')->getFlashBag()->add(
+                'message',
+                $message
+            );
+        }
+
+        $params['userForm'] = $userForm->createView();
+
+        return $this->render('user/account.html.twig', $params);
+
+    }
+
+    /**
+     * @Route("/compte/change-mot-de-passe")
+     */
+    public function updatePasswordAction(Request $request) {
+        $params = array();
+
+        $change = new ChangePassword();
+        $user = $this->getUser();
+
+        $changePasswordForm = $this->createForm(new ChangePasswordType(), $change);
+        $changePasswordForm->handleRequest($request);
+
+            
+        if($changePasswordForm->isValid()) {
+                
+            
+        }
+
+        $errors = $changePasswordForm->getErrors();
+        $params['errors'] = $errors;
+
+        $params['changePasswordForm'] = $changePasswordForm->createView();
+
+        return $this->render('user/update_password.html.twig', $params);
+
+
+    }
+
 }

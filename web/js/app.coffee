@@ -3,6 +3,9 @@ class Init
         @button = new Click($('#cart'))
         .buttonCart()
 
+        new Click($('#button'))
+        .buttonAfficheChangePassword()
+
 class Click
     constructor: (@selector) ->
 
@@ -11,7 +14,45 @@ class Click
             cart = new Cart($('#cart'))
             cart.ajax()
             return false
-            
+
+    buttonAfficheChangePassword: ->
+        @selector.on "click", 'a', ->
+            new ChangePassword($(@))
+            .ajax()
+            return false
+
+    buttonChangePassword: ->
+        @selector.on "submit", ->
+            new ChangePassword($(@))
+            .ajaxForm()
+            return false
+
+class ChangePassword
+    constructor: (@button) ->
+
+    ajaxForm: ->
+        console.log(@button.attr 'action')
+
+        $.ajax
+            url: 'compte/change-mot-de-passe'
+            success: (html) ->
+                console.log(html)
+
+    ajax: ->
+        $.ajax
+            url:@button.attr 'href'
+            success: (html) ->
+                options = $('#options')
+                options
+                .fadeOut
+                    complete: ->
+                        options
+                        .empty()
+                        .append($(html))
+                        new Click($('#changePassword'))
+                        .buttonChangePassword()
+                .fadeIn()
+
 class Cart 
     constructor: (@button) ->
 

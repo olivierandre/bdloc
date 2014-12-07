@@ -46,6 +46,12 @@ a:hover {
   text-decoration: none;
   color: #000;
 }
+a:active,
+a:hover,
+submit:active {
+  text-decoration: none;
+  outline: none;
+}
 input {
   outline: none;
 }
@@ -172,6 +178,13 @@ button {
 }
 #addRemove #cart:hover {
   background: #1abc9c;
+}
+/*
+ * Account
+ */
+.buttonAccount {
+  background: #dff0d8;
+  margin-bottom: 10px;
 }
 /*
  * Formulaire

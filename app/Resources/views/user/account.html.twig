@@ -1,0 +1,42 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+
+	<h1>{% block title %}Vos informations{% endblock %}</h1>
+
+	<div class="container">
+		<div class="row">
+			<div id='userAccount' class="col-xs-12">
+				<div class='container'>
+					<div class="row">
+						<div id="detailsAccount" class="col-xs-12 col-md-6">
+							<h4>Détails de votre compte</h4>
+							{% for flashMessage in app.session.flashbag.get('message') %}
+				
+						    <div class="alert alert-success">
+						        <p>{{ flashMessage }}</p>
+						    </div>
+							{% endfor %}
+
+							{{ form_start(userForm, {'attr': {'novalidate' : 'novalidate'}}) }}
+
+							{{ form_end(userForm)}}
+						</div>
+
+						<div id="options" class="col-xs-12 col-md-6">
+							<div id="otherOptions">
+								<h4>Autres options</h4>
+								<div id="button">
+									<a href="#" class="buttonAccount" title="Choisir un point relais">Choisir votre point relais</a>
+									<a href="{{ path('bdloc_app_user_updatepassword')}}" class="buttonAccount" title="Modifier mot de passe">Modifier votre mot de passe</a>
+									<a href="#" class="buttonAccount" title="Choix abonnement">Choisir un abonnement</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
