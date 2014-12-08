@@ -186,6 +186,13 @@ button {
   background: #dff0d8;
   margin-bottom: 10px;
 }
+#backOptions {
+  margin-top: 20px;
+  text-align: center;
+}
+#backOptions a {
+  background: #dff0d8;
+}
 /*
  * Formulaire
  */

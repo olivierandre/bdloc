@@ -1,0 +1,39 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+<div class="container">
+	<div class="row">
+		<div id="choixAbonnement" class="col-xs-12">
+			{% for flashMessage in app.session.flashbag.get('message') %}
+				
+		    <div class="alert alert-alert">
+		        <p>{{ flashMessage }}</p>
+		    </div>
+			{% endfor %}
+			<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_takesubscriptionpayment') }}">
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="mensuel" value="mensuel">
+				    Abonnement mensuel
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="annuel" value="annuel">
+				    Abonnement annuel
+				  </label>
+				</div>
+				<button type="submit" class="btn btn-success">étape suivante</button>	
+			</form>
+			<div id="montantAbonnement">
+				<span>0€</span>
+			</div>
+		</div>
+		   		
+		<div id="button" class="col-xs-12">
+			<a class="retour" href="{{ path('bdloc_app_default_home') }}" title="Accueil">Retour accueil</a>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

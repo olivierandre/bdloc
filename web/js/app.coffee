@@ -6,6 +6,12 @@ class Init
         new Click($('#button'))
         .buttonAfficheChangePassword()
 
+        new Click($('#updateAccountUser'))
+        .buttonUpdateProfil()
+
+        new Click($('#formAbonnement input'))
+        .focusAbonnement()
+
 class Click
     constructor: (@selector) ->
 
@@ -16,27 +22,113 @@ class Click
             return false
 
     buttonAfficheChangePassword: ->
-        @selector.on "click", 'a', ->
+        @selector.on "click", '#managePassword', ->
             new ChangePassword($(@))
             .ajax()
+            return false
+
+    buttonUpdateProfil: ->
+        @selector.on 'submit', ->
+            new ManageProfil($(@))
+            .ajaxUpdateProfil()
             return false
 
     buttonChangePassword: ->
         @selector.on "submit", ->
             new ChangePassword($(@))
-            .ajaxForm()
+            .ajaxFormChangePassword()
             return false
+
+    buttonAfficheOptions: ->
+        @selector.on "click", 'a', ->
+            new ManageProfil($(@))
+            .ajaxAfficheOptions()
+            return false;
+
+    focusAbonnement: ->
+        @selector.on "focus", ->
+            new Abonnement($(@).attr 'value')
+            .focusAbo()
+
+class Abonnement
+    constructor: (@value) ->
+
+    focusAbo: ->
+        span = $('#montantAbonnement').find('span')
+        if @value is "mensuel"
+            span.text("L’abonnement mensuel coûte le prix d’une seule BD : 12€ TTC")
+        else
+            span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC")
+
+
+class ManageProfil
+    constructor: (@button) ->
+
+    ajaxUpdateProfil: ->
+        $.ajax
+            url: @button.attr 'action'
+            type: @button.attr 'method'
+            data: @button.serialize()
+            success: (html) ->
+                html = $(html)
+                detailsAccount = $('#detailsAccount')
+                newDetailsAccount = html.find('#detailsAccount').children()
+                
+                detailsAccount
+                .fadeOut
+                    complete: ->
+                        detailsAccount
+                        .empty()
+                        .append(newDetailsAccount)
+                        new Click($('#updateAccountUser'))
+                        .buttonUpdateProfil()
+                .fadeIn()
+
+    ajaxAfficheOptions: ->
+        $.ajax
+            url: @button.attr 'href'
+            success: (html) ->
+                console.log(html)
+                html = $(html)
+                options = $('#options')
+                newOptions = html.filter('#otherOptions')
+
+                options.fadeOut
+                    complete: ->
+                        options
+                        .empty()
+                        .append(newOptions)
+                        new Click($('#button'))
+                        .buttonAfficheChangePassword()
+                .fadeIn()
+
 
 class ChangePassword
     constructor: (@button) ->
 
-    ajaxForm: ->
-        console.log(@button.attr 'action')
-
+    ajaxFormChangePassword: ->
         $.ajax
-            url: 'compte/change-mot-de-passe'
+            url: @button.attr 'action'
+            type: @button.attr 'method'
+            data: @button.serialize()
             success: (html) ->
-                console.log(html)
+                html = $(html)
+                div = $('#formChangePassword')
+                newDiv = html.find('#change')
+                newForm = html.find('#changePassword')
+                new Click(newForm)
+                .buttonChangePassword()
+
+                div.fadeOut
+                    complete: ->
+                        div
+                        .empty()
+                        div
+                        .append(newDiv) 
+                        new Click($('#backOptions'))
+                        .buttonAfficheOptions() 
+                .fadeIn()
+
 
     ajax: ->
         $.ajax
@@ -51,7 +143,10 @@ class ChangePassword
                         .append($(html))
                         new Click($('#changePassword'))
                         .buttonChangePassword()
+                        new Click($('#backOptions'))
+                        .buttonAfficheOptions()
                 .fadeIn()
+                
 
 class Cart 
     constructor: (@button) ->

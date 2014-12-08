@@ -302,18 +302,56 @@ class UserController extends Controller
 
             
         if($changePasswordForm->isValid()) {
-                
-            
-        }
+            // Gestion du salt
+            $stringHelper = new StringHelper();
+            $user->setSalt($stringHelper->getSaltToken());
 
-        $errors = $changePasswordForm->getErrors();
-        $params['errors'] = $errors;
+            // Gestion du token
+            $user->setToken($stringHelper->getSaltToken());
+
+            // Crypté les passwords
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            $password = $encoder->encodePassword($change->getNewPassword(), $user->getSalt());
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            /*$message = \Swift_Message::newInstance()
+                ->setSubject('Bdloc - Mot de passe réinitialisé')
+                ->setFrom('olivier.andre@outlook.com')
+                ->setTo($user->getEmail())
+                ->setContentType('text/html')
+                ->setBody('Votre mot de passe a bien été réinitialisé');
+            $send = $this->get('mailer')->send($message);*/
+
+            // Auto-login (Attention au nom du firewall : dans ce cas, c'est secured_area cf: security.yml)
+            $token = new UsernamePasswordToken($user, $user->getPassword(), "secured_area", $user->getRoles());
+            $this->get("security.context")->setToken($token);
+
+            // Fire the login event
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+            $message = "Félicitations !!! Votre mot de passe a été modifié :-)";
+            $params['message'] = $this->get('session')->getFlashBag()->add('message', $message);
+            $params['titleMessage'] = "Félicitations :-))";
+        }
 
         $params['changePasswordForm'] = $changePasswordForm->createView();
 
         return $this->render('user/update_password.html.twig', $params);
 
 
+    }
+
+    /**
+     * @Route("/compte/options")
+     */
+    public function afficheOptionsAction() {
+        return $this->render('BdlocAppBundle:Static:options.html.twig');
     }
 
 }
