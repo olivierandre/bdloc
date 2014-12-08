@@ -194,6 +194,12 @@ button {
   background: #dff0d8;
 }
 /*
+ * Abonnement
+ */
+#choixAbonnement {
+  margin: 50px;
+}
+/*
  * Formulaire
  */
 form li {
@@ -205,6 +211,12 @@ form li {
 .message {
   text-align: center;
   margin-top: 100px;
+}
+/*
+ * Bootstrapt
+ */
+.alert-danger p {
+  text-align: center !important;
 }
 /*
  * Animation

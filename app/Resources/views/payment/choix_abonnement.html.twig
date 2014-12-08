@@ -4,29 +4,35 @@
 <div class="container">
 	<div class="row">
 		<div id="choixAbonnement" class="col-xs-12">
-			{% for flashMessage in app.session.flashbag.get('message') %}
-				
-		    <div class="alert alert-alert">
-		        <p>{{ flashMessage }}</p>
-		    </div>
-			{% endfor %}
-			<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_takesubscriptionpayment') }}">
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="mensuel" value="mensuel">
-				    Abonnement mensuel
-				  </label>
+			<div id="form" class="col-xs-6">
+				<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_takesubscriptionpayment') }}">
+					{% for flashMessage in app.session.flashbag.get('message') %}
+					
+				    <div class="alert alert-danger">
+				        <p>{{ flashMessage }}</p>
+				    </div>
+					{% endfor %}
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" id="mensuel" value="mensuel">
+					    Abonnement mensuel
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" id="annuel" value="annuel">
+					    Abonnement annuel
+					  </label>
+					</div>
+					<button type="submit" class="btn btn-success">étape suivante</button>	
+				</form>
+				<div id="montantAbonnement">
+					<span></span>
 				</div>
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="annuel" value="annuel">
-				    Abonnement annuel
-				  </label>
-				</div>
-				<button type="submit" class="btn btn-success">étape suivante</button>	
-			</form>
-			<div id="montantAbonnement">
-				<span>0€</span>
+			</div>
+
+			<div>
+				<h4>Vos données bancaires</h4>
 			</div>
 		</div>
 		   		

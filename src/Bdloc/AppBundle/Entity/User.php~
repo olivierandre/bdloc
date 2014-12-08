@@ -549,27 +549,4 @@ class User implements UserInterface
     {
         return $this->cart;
     }
-
-    /**
-     * Set abonnement
-     *
-     * @param string $abonnement
-     * @return User
-     */
-    public function setAbonnement($abonnement)
-    {
-        $this->abonnement = $abonnement;
-
-        return $this;
-    }
-
-    /**
-     * Get abonnement
-     *
-     * @return string 
-     */
-    public function getAbonnement()
-    {
-        return $this->abonnement;
-    }
 }

@@ -15,27 +15,28 @@ class PaymentController extends Controller
     {
     	$params = array();
 
-        if(empty($_POST)) {
-            $message = "Veuillez effectuer un choix d'abonnement";
+        $abonnement = $request->request->get('optionsRadios');
+
+        if(empty($abonnement)) {
+            $message = "Veuillez choisir un abonnement";
             $params['error'] = $this->get('session')->getFlashBag()->add(
                 'message',
                 $message
             );
-
         }
 
         return $this->render("payment/choix_abonnement.html.twig", $params);
     }
 
     /**
-     * @Route("/compte/payer-abonnement")
+     * @Route("/compte/amende")
      */
     public function takeFinePaymentAction()
     {
         $params = array();
 
     
-        return $this->render("payment/payment.html.twig", $params);
+        return $this->render("payment/amende.html.twig", $params);
     }
 
 }
