@@ -7,6 +7,7 @@ Init = (function() {
     new Click($('#button')).buttonAfficheChangePassword();
     new Click($('#updateAccountUser')).buttonUpdateProfil();
     new Click($('#formAbonnement input')).focusAbonnement();
+    new Click($('#formAbonnement')).submitAbonnement();
   }
 
   return Init;
@@ -61,6 +62,13 @@ Click = (function() {
     });
   };
 
+  Click.prototype.submitAbonnement = function() {
+    return this.selector.on("submit", function() {
+      new Abonnement($(this)).payer();
+      return false;
+    });
+  };
+
   return Click;
 
 })();
@@ -77,6 +85,14 @@ Abonnement = (function() {
       return span.text("L’abonnement mensuel coûte le prix d’une seule BD : 12€ TTC");
     } else {
       return span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC");
+    }
+  };
+
+  Abonnement.prototype.payer = function() {
+    var checked;
+    checked = this.value.find('input[type=radio]').is(':checked');
+    if (!checked) {
+      return $('.alert-danger').effect("shake");
     }
   };
 

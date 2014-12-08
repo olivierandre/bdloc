@@ -4,8 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div id="choixAbonnement" class="col-xs-12">
-			<div id="form" class="col-xs-6">
-				<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_takesubscriptionpayment') }}">
+			<div id="form" class="col-xs-12 col-md-6">
+				<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_card') }}">
 					{% for flashMessage in app.session.flashbag.get('message') %}
 					
 				    <div class="alert alert-danger">
@@ -27,12 +27,14 @@
 					<button type="submit" class="btn btn-success">étape suivante</button>	
 				</form>
 				<div id="montantAbonnement">
-					<span></span>
+					<div class="alert alert-info" role="alert"><span>Aucun montant</span></div>
+					
 				</div>
 			</div>
 
-			<div>
-				<h4>Vos données bancaires</h4>
+			<div class="col-xs-12 col-md-6">
+				<h4>Vos coordonnées bancaires</h4>
+				 {{ render(controller('BdlocAppBundle:Payment:card')) }}
 			</div>
 		</div>
 		   		

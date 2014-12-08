@@ -12,6 +12,9 @@ class Init
         new Click($('#formAbonnement input'))
         .focusAbonnement()
 
+        new Click($('#formAbonnement'))
+        .submitAbonnement()
+
 class Click
     constructor: (@selector) ->
 
@@ -50,6 +53,12 @@ class Click
             new Abonnement($(@).attr 'value')
             .focusAbo()
 
+    submitAbonnement: ->
+        @selector.on "submit", ->
+            new Abonnement($(@))
+            .payer()
+            return false
+
 class Abonnement
     constructor: (@value) ->
 
@@ -59,6 +68,16 @@ class Abonnement
             span.text("L’abonnement mensuel coûte le prix d’une seule BD : 12€ TTC")
         else
             span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC")
+
+    payer: ->
+        checked = @value.find 'input[type=radio]'
+            .is ':checked'
+
+        if not checked
+            $('.alert-danger')
+            .effect "shake"
+        else
+            
 
 
 class ManageProfil
