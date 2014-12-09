@@ -7,7 +7,6 @@ Init = (function() {
     new Click($('#button')).buttonAfficheChangePassword();
     new Click($('#updateAccountUser')).buttonUpdateProfil();
     new Click($('#formAbonnement input')).focusAbonnement();
-    new Click($('#formAbonnement')).submitAbonnement();
   }
 
   return Init;
@@ -64,7 +63,7 @@ Click = (function() {
 
   Click.prototype.submitAbonnement = function() {
     return this.selector.on("submit", function() {
-      new Abonnement($(this)).payer();
+      new Abonnement($(this)).afficheCard();
       return false;
     });
   };
@@ -82,18 +81,48 @@ Abonnement = (function() {
     var span;
     span = $('#montantAbonnement').find('span');
     if (this.value === "mensuel") {
-      return span.text("L’abonnement mensuel coûte le prix d’une seule BD : 12€ TTC");
+      span.text("L’abonnement mensuel coûte le prix d’une seule BD : 12€ TTC");
     } else {
-      return span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC");
+      span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC");
+    }
+    this.afficheSubmit();
+    return this.abonnementInHiddenInput(this.value);
+  };
+
+  Abonnement.prototype.afficheSubmit = function() {
+    var afficheCard, form, len;
+    form = $('#formAbonnement');
+    len = form.find(':submit').length;
+    if (len === 0) {
+      afficheCard = $('<button>').attr({
+        'type': 'submit',
+        'class': 'btn btn-success'
+      }).text('étape suivante').appendTo('#formAbonnement');
+      return new Click(form).submitAbonnement();
     }
   };
 
-  Abonnement.prototype.payer = function() {
-    var checked;
-    checked = this.value.find('input[type=radio]').is(':checked');
-    if (!checked) {
-      return $('.alert-danger').effect("shake");
-    }
+  Abonnement.prototype.afficheCard = function() {
+    return $.ajax({
+      url: this.value.attr('action'),
+      success: function(html) {
+        var div, hfour;
+        html = $(html);
+        div = $('<div>');
+        hfour = $('<h4>').text('Vos coordonnées bancaires');
+        div.attr({
+          'class': 'col-xs-12 col-md-6',
+          'id': 'bancaires'
+        });
+        html.find('#bdloc_appbundle_creditcard_abonnement').val($('#formAbonnement input').val());
+        return div.append(hfour).append(html).appendTo($('#choixAbonnement'));
+      }
+    });
+  };
+
+  Abonnement.prototype.abonnementInHiddenInput = function(value) {
+    this.value = value;
+    return $('#bancaires').find('#bdloc_appbundle_creditcard_abonnement').val(this.value);
   };
 
   return Abonnement;

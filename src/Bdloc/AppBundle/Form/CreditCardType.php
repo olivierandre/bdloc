@@ -17,29 +17,40 @@ class CreditCardType extends AbstractType
         $builder
             // ->add('paypalid')
             // ->add('validUntil')
+            ->add('abonnement', 'hidden', array(
+                'mapped' => false
+                ))
             ->add('cardNumber', null, array(
                 'label' => "Numéro de carte de crédit",
                 'attr' => array(
                     'placeholder' => 'Obligatoire'
                     )
                 ))
-            // ->add('codeCVC', null, array(
-            //     'label' => "Code CVC",
-            //     'attr' => array(
-            //         'placeholder' => 'Obligatoire'
-            //         )
-            //     ))
+            ->add('codeCVC', null, array(
+                'mapped' => false,
+                'label' => "Code CVC",
+                'attr' => array(
+                    'placeholder' => 'Obligatoire'
+                    )
+                ))
+             ->add('monthValidUntil', null, array(
+                'label' => "Mois d'expiration"
+                ))
+            ->add('yearValidUntil', null, array(
+                'label' => "Année d'expiration"
+                ))
             ->add('userCard', null, array(
                 'label' => "Nom du détenteur de la carte",
                 'attr' => array(
                     'placeholder' => 'Obligatoire'
                     )
                 ))
-            ->add('expirationCard', null, array(
-                'label' => "Date d'expiration",
-                ))
-            // ->add('dateCreated')
-            // ->add('dateModified')
+            ->add('submit', 'submit', array(
+                'label' => "Valider",
+                'attr' => array(
+                    'class' => "btn btn-success"
+                    )
+                )) 
         ;
     }
     

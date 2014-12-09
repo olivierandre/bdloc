@@ -26,7 +26,7 @@ class CartRepository extends EntityRepository
 		->leftjoin('cartitem.book', 'book')
 		->select('book.id, book.title')
 		->where('cart.user = :id')
-		->setParameter(':id', $user->getId())
+		->setParameter(':id', $user)
 		->getQuery();
 
         return $query->getResult();

@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "273e14e25433fa25976c685843f4c5e5",
+    "hash": "251912da0d214b44b5c31adbef4f890e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -814,6 +815,52 @@
             "time": "2014-01-12 16:20:24"
         },
         {
+            "name": "kmj/paypalbridgebundle",
+            "version": "dev-master",
+            "target-dir": "KMJ/PayPalBridgeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Demoboy/PayPalBridgeBundle.git",
+                "reference": "36942652767150a900ebcdab6698e2082fb215c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Demoboy/PayPalBridgeBundle/zipball/36942652767150a900ebcdab6698e2082fb215c9",
+                "reference": "36942652767150a900ebcdab6698e2082fb215c9",
+                "shasum": ""
+            },
+            "require": {
+                "paypal/rest-api-sdk-php": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": ">=2.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "KMJ\\PayPalBridgeBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kaelin Jacobson",
+                    "email": "kaelinjacobson@gmail.com"
+                }
+            ],
+            "description": "Symfony2 Bundle creates a bridge for the PayPal REST SDK",
+            "homepage": "http://github.com/Demoboy/PayPalBridgeBundle",
+            "keywords": [
+                "KMJ",
+                "paypal"
+            ],
+            "time": "2014-10-08 01:32:21"
+        },
+        {
             "name": "kriswallsmith/assetic",
             "version": "v1.2.0",
             "source": {
@@ -958,6 +1005,54 @@
                 "psr-3"
             ],
             "time": "2014-09-30 13:30:58"
+        },
+        {
+            "name": "paypal/rest-api-sdk-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
+                "reference": "bc47413c2afb0919e963b5f00a10477433ea7f3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/bc47413c2afb0919e963b5f00a10477433ea7f3f",
+                "reference": "bc47413c2afb0919e963b5f00a10477433ea7f3f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PayPal": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
+                }
+            ],
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "https://github.com/paypal/rest-api-sdk-php",
+            "keywords": [
+                "payments",
+                "paypal",
+                "rest",
+                "sdk"
+            ],
+            "time": "2014-12-08 23:46:26"
         },
         {
             "name": "psr/log",
@@ -1727,21 +1822,21 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v2.4.3",
+            "version": "v2.5.0",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "2e2d8096a65cfec2658bd3f21e506fa1058b962e"
+                "reference": "0225fcd08e94de2165ffa85de50c3c9d9592e96b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/2e2d8096a65cfec2658bd3f21e506fa1058b962e",
-                "reference": "2e2d8096a65cfec2658bd3f21e506fa1058b962e",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/0225fcd08e94de2165ffa85de50c3c9d9592e96b",
+                "reference": "0225fcd08e94de2165ffa85de50c3c9d9592e96b",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": "~2.0",
+                "symfony/console": "~2.5",
                 "symfony/framework-bundle": "~2.2"
             },
             "require-dev": {
@@ -1752,7 +1847,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.5.x-dev"
                 }
             },
             "autoload": {
@@ -1771,14 +1866,20 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2014-12-04 05:46:34"
+            "time": "2014-12-07 18:30:52"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "paypal/rest-api-sdk-php": 20,
+        "kmj/paypalbridgebundle": 20
+    },
+    "prefer-stable": false,
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }

@@ -150,6 +150,11 @@ class User implements UserInterface
     private $cart;
 
     /**
+     * @ORM\OneToMany(targetEntity="Bdloc\AppBundle\Entity\CreditCard", mappedBy="user")
+     */
+    private $creditCard;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="type_abo", type="string", length=10, nullable=true)
@@ -571,5 +576,38 @@ class User implements UserInterface
     public function getAbonnement()
     {
         return $this->abonnement;
+    }
+
+    /**
+     * Add CreditCard
+     *
+     * @param \Bdloc\AppBundle\Entity\CreditCard $creditCard
+     * @return User
+     */
+    public function addCreditCard(\Bdloc\AppBundle\Entity\CreditCard $creditCard)
+    {
+        $this->CreditCard[] = $creditCard;
+
+        return $this;
+    }
+
+    /**
+     * Remove CreditCard
+     *
+     * @param \Bdloc\AppBundle\Entity\CreditCard $creditCard
+     */
+    public function removeCreditCard(\Bdloc\AppBundle\Entity\CreditCard $creditCard)
+    {
+        $this->CreditCard->removeElement($creditCard);
+    }
+
+    /**
+     * Get CreditCard
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCreditCard()
+    {
+        return $this->CreditCard;
     }
 }

@@ -12,9 +12,6 @@ class Init
         new Click($('#formAbonnement input'))
         .focusAbonnement()
 
-        new Click($('#formAbonnement'))
-        .submitAbonnement()
-
 class Click
     constructor: (@selector) ->
 
@@ -56,7 +53,7 @@ class Click
     submitAbonnement: ->
         @selector.on "submit", ->
             new Abonnement($(@))
-            .payer()
+            .afficheCard()
             return false
 
 class Abonnement
@@ -68,16 +65,46 @@ class Abonnement
             span.text("L’abonnement mensuel coûte le prix d’une seule BD : 12€ TTC")
         else
             span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC")
+        @.afficheSubmit()
+        @.abonnementInHiddenInput(@value)
 
-    payer: ->
-        checked = @value.find 'input[type=radio]'
-            .is ':checked'
+    afficheSubmit: ->
+        form = $('#formAbonnement')
+        len = form.find ':submit' 
+        .length
+        if len is 0
+            afficheCard = $('<button>')
+            .attr
+                'type' : 'submit'
+                'class' : 'btn btn-success'
+            .text 'étape suivante'
+            .appendTo '#formAbonnement'
+            new Click(form).
+            submitAbonnement()
 
-        if not checked
-            $('.alert-danger')
-            .effect "shake"
-        else
-            
+    afficheCard: ->
+        $.ajax
+            url : @value.attr 'action'
+            success: (html) ->
+                html = $ html
+                div = $ '<div>'
+                hfour = $('<h4>').text 'Vos coordonnées bancaires'
+
+                div.attr
+                    'class' : 'col-xs-12 col-md-6'
+                    'id' : 'bancaires'
+
+                html.find '#bdloc_appbundle_creditcard_abonnement'
+                .val($('#formAbonnement input')
+                .val())
+
+                div.append hfour
+                .append html
+                .appendTo $('#choixAbonnement')
+    
+    abonnementInHiddenInput: (@value) ->
+        $('#bancaires').find '#bdloc_appbundle_creditcard_abonnement'
+        .val(@value)
 
 
 class ManageProfil
