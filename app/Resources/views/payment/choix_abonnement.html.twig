@@ -1,9 +1,29 @@
 {% extends ':layouts:base.html.twig' %}
 
 {% block main_content %}
+
+	
+
 <div class="container">
 	<div class="row">
 		<div id="choixAbonnement" class="col-xs-12">
+			{% if app.user.abonnement is not null %}
+				{% if app.user.abonnement == 'mensuel' %}
+					{% set dateFinAbonnement = app.user.dateAbonnement|date_modify("+1 month") %}
+				{% else %}
+					{% set dateFinAbonnement = app.user.dateAbonnement|date_modify("+1 year") %}
+				{% endif %}
+				<div class="col-xs-12 alert alert-success">
+			        <p>Félicitations !!! Vous avez un abonnement <strong>{{ abonnement }}</strong>. Il se finira le <strong>{{ dateFinAbonnement|localizeddate('full', 'none', 'fr') }}</strong> ... à 23h59 ;-)</p>
+			    </div>
+			    <div class="col-xs-12">
+			    	<a href="{{ path('bdloc_app_payment_showcard') }}" class="btn btn-info" id='showCard' title="affiche carte">Afficher ma carte bleue</a>
+				</div>
+			    <div class="afficheCarte col-xs-offset-3 col-xs-6">
+			    	
+			    </div>
+			{% else %}
+		
 			<div id="form" class="col-xs-12 col-md-6">
 				<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_card') }}">
 					{% for flashMessage in app.session.flashbag.get('message') %}
@@ -30,6 +50,7 @@
 					<div class="alert alert-info" role="alert"><span>Aucun montant</span></div>
 				</div>
 			</div>
+			{% endif %}
 
 			
 		</div>

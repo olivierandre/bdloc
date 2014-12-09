@@ -161,6 +161,13 @@ class User implements UserInterface
      */
     private $abonnement;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateAbonnement", type="datetime", nullable=true)
+     */
+    private $dateAbonnement;
+
 
     /**
      * Get id
@@ -609,5 +616,28 @@ class User implements UserInterface
     public function getCreditCard()
     {
         return $this->CreditCard;
+    }
+
+    /**
+     * Set dateAbonnement
+     *
+     * @param \DateTime $dateAbonnement
+     * @return User
+     */
+    public function setDateAbonnement($dateAbonnement)
+    {
+        $this->dateAbonnement = $dateAbonnement;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAbonnement
+     *
+     * @return \DateTime 
+     */
+    public function getDateAbonnement()
+    {
+        return $this->dateAbonnement;
     }
 }

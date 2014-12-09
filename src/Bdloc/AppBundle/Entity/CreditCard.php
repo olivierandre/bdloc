@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CreditCard
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Bdloc\AppBundle\Entity\CreditCardRepository")
  */
 class CreditCard
@@ -45,7 +46,7 @@ class CreditCard
     /**
      * @var string
      *
-     * @ORM\Column(name="cardNumber", type="string", length=4)
+     * @ORM\Column(name="cardNumber", type="string", length=16)
      */
     private $cardNumber;
 
@@ -304,5 +305,20 @@ class CreditCard
     public function getYearValidUntil()
     {
         return $this->yearValidUntil;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function beforeInsert() {
+        $this->setDateCreated(new \DateTime());
+        $this->setDateModified(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function beforeEdit() {
+        $this->setDateModified(new \DateTime());
     }
 }

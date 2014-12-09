@@ -7,6 +7,7 @@ Init = (function() {
     new Click($('#button')).buttonAfficheChangePassword();
     new Click($('#updateAccountUser')).buttonUpdateProfil();
     new Click($('#formAbonnement input')).focusAbonnement();
+    new Click($('#showCard')).buttonShowCard();
   }
 
   return Init;
@@ -51,6 +52,13 @@ Click = (function() {
   Click.prototype.buttonAfficheOptions = function() {
     return this.selector.on("click", 'a', function() {
       new ManageProfil($(this)).ajaxAfficheOptions();
+      return false;
+    });
+  };
+
+  Click.prototype.buttonShowCard = function() {
+    return this.selector.on('click', function() {
+      new Abonnement($(this)).showInfoCard();
       return false;
     });
   };
@@ -100,6 +108,20 @@ Abonnement = (function() {
       }).text('étape suivante').appendTo('#formAbonnement');
       return new Click(form).submitAbonnement();
     }
+  };
+
+  Abonnement.prototype.showInfoCard = function() {
+    return $.ajax({
+      url: this.value.attr('href'),
+      success: function(html) {
+        var div;
+        html = $(html);
+        div = $('.afficheCarte');
+        return div.append(html).animate({
+          'opacity': '1'
+        });
+      }
+    });
   };
 
   Abonnement.prototype.afficheCard = function() {

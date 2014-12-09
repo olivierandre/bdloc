@@ -161,6 +161,13 @@ class User implements UserInterface
      */
     private $abonnement;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateAbonnement", type="datetime", nullable=true)
+     */
+    private $dateAbonnement;
+
 
     /**
      * Get id
