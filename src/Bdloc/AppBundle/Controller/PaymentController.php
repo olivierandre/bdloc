@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Bdloc\AppBundle\Form\CreditCardType;
 use Bdloc\AppBundle\Entity\CreditCard as Credit;
+use Bdloc\AppBundle\Entity\TransactionAbonnement;
 
 use PayPal\Api\Amount;
 use PayPal\Api\CreditCard;
@@ -21,8 +22,6 @@ use PayPal\Api\Transaction;
 //        $card->setExpire_month("11");
 //        $card->setExpire_year("2018");
 //        $card->setCvv2("987");
-//        $card->setFirst_name("Joe");
-//        $card->setLast_name("Shopper");
 
 class PaymentController extends Controller
 {
@@ -32,7 +31,9 @@ class PaymentController extends Controller
     public function takeSubscriptionPaymentAction(Request $request)
     {
     	$params = array();
+        $params['idPayment'] = null;
         $doctrine = $this->getDoctrine();
+        $user = $this->getUser();
 
         // On vérifie si l'utilisateur a déjà un abonnement
         $abonnement = $this->getUser()->getAbonnement();
@@ -93,8 +94,6 @@ class PaymentController extends Controller
                     
                     $card->setLast_name(substr($chaine, 0, strlen($chaine) - 1));
                 }
-                // dump($card);
-                // die();
                 
                 // ### FundingInstrument
                 // A resource representing a Payer's funding instrument.
@@ -143,12 +142,17 @@ class PaymentController extends Controller
                 try {
                     $result = $payment->create($apiContext);
                     //  L'ID de paiement
-                    $params['idPayment'] = $result->getId();
+                    $idPayment = $result->getId();
+                    $transactId = $result->getTransactions()[0]->getRelatedResources()[0]->getSale()->getId();
                 } catch (\Paypal\Exception\PPConnectionException $pce) {
-                    print_r( json_decode($pce->getData()) );
+                    $error =  json_decode($pce->getData());
+                    $params['errors'] = $error;
+                    $params['errorPaypal'] = "Erreur lors de la transaction avec Paypal";
+                    return $this->ErrorTransactionAction($params);
                     //  Si ça casse, on redirige.
                 }
-
+                /*dump($result);
+                die();*/
                 // Enregistrement de la carte chez Paypal
                 // For Sample Purposes Only.
                 $request = clone $card;
@@ -157,13 +161,20 @@ class PaymentController extends Controller
                     $card->create($apiContext);
                 } catch (Exception $ex) {
                     ResultPrinter::printError("Create Credit Card", "Credit Card", null, $request, $ex);
+                    $params['errorPaypal'] = "Erreur lors de l'enregistrement de votre carte chez Paypal";
+                    return $this->render("Exception/error.html.twig", $params);
                     exit(1);
                     //  Si ça casse, on redirige
                 }
 
-                //  Si on arrive ici, le traitement PayPal est OK
-                //  Dernière hydratation avant BDD
+                $transactionAbonnement = new TransactionAbonnement();
+                $transactionAbonnement->setUser($user);
+                $transactionAbonnement->setTransactionId($transactId);
+                $transactionAbonnement->setPaymentResource($idPayment);
+                $transactionAbonnement->setTypeAbonnement($abonnement);
 
+                /* Si on arrive ici, le traitement PayPal est OK
+                 Dernière hydratation avant BDD*/
                 $creditCard->setPaypalid($card->getId());
                 $creditCard->setUser($user);
                 $creditCard->setCardNumber($card->getNumber());
@@ -172,17 +183,26 @@ class PaymentController extends Controller
                 $user->setDateAbonnement(new \DateTime);
 
                 $em = $doctrine->getManager();
+                $em->persist($transactionAbonnement);
                 $em->persist($creditCard);
                 $em->persist($user);
                 $em->flush();
+
+                $params['idPayment'] = $idPayment;
+                $params['transactId'] = $transactId;
             }
         } else {
 
         }
 
-        $params['abonnement'] = $abonnement;
-
         return $this->render("payment/choix_abonnement.html.twig", $params);
+    }
+
+    /**
+     * @Route("/compte/erreur-transaction-paypal")
+     */
+    public function ErrorTransactionAction($params) {
+        return $this->render("Exception/error.html.twig", $params);
     }
 
     /**

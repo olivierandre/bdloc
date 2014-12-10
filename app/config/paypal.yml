@@ -1,11 +1,11 @@
 kmj_pay_pal_bridge:
     environment: sandbox
     sandbox:
-        clientId: 'AedZ1hBqvGPZ3oNqu5WsFJgbN3fbc6tPj8nj6ZfFiO9GpNp3xHxZhw-IZepb'
-        secret: 'EOA-lRDO4rA1mso6-kdVOKu6GjEHGdUDHXAJI6SYJl2kUlabT6BayKh-PtJH' 
+        clientId: 'Aa8mlBAEsT9MczjYi6ebt7itE9VYql6Io8pBtagVfs7R_Ztzw6BDdM6ojOfQ'
+        secret: 'EMtXnhBpFI4wDyyYf-ogDsx2A5S1MxqEpbgtIrI3FvqNcejB_zSVsrd8BuY5' 
     production:
-        clientId: 'AedZ1hBqvGPZ3oNqu5WsFJgbN3fbc6tPj8nj6ZfFiO9GpNp3xHxZhw-IZepb'
-        secret: 'EOA-lRDO4rA1mso6-kdVOKu6GjEHGdUDHXAJI6SYJl2kUlabT6BayKh-PtJH' 
+        clientId: 'Aa8mlBAEsT9MczjYi6ebt7itE9VYql6Io8pBtagVfs7R_Ztzw6BDdM6ojOfQ'
+        secret: 'EMtXnhBpFI4wDyyYf-ogDsx2A5S1MxqEpbgtIrI3FvqNcejB_zSVsrd8BuY5' 
     logs:
         enabled: true                                   
         filename: %kernel.root_dir%/logs/paypal.log    

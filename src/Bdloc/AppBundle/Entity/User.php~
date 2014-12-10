@@ -168,6 +168,11 @@ class User implements UserInterface
      */
     private $dateAbonnement;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Bdloc\AppBundle\Entity\TransactionAbonnement", mappedBy="user")
+     */
+    private $transaction;
+
 
     /**
      * Get id
@@ -616,5 +621,28 @@ class User implements UserInterface
     public function getCreditCard()
     {
         return $this->CreditCard;
+    }
+
+    /**
+     * Set dateAbonnement
+     *
+     * @param \DateTime $dateAbonnement
+     * @return User
+     */
+    public function setDateAbonnement($dateAbonnement)
+    {
+        $this->dateAbonnement = $dateAbonnement;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAbonnement
+     *
+     * @return \DateTime 
+     */
+    public function getDateAbonnement()
+    {
+        return $this->dateAbonnement;
     }
 }

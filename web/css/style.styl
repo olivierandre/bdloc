@@ -8,6 +8,8 @@ turquoise = rgba(26, 188, 156, .5)
 turquoiseHover = rgba(26, 188, 156, 1)
 vertTitreBD = rgba(194, 208, 152, 1)
 vertSuccess = #dff0d8
+violetPanier = rgba(220, 198, 224, 1)
+bluePanier = rgba(97, 239, 247, 1)
 $keyframe-inscription = inscription
 $keyframe-scale = scale
 
@@ -176,6 +178,16 @@ input[type=submit], button
 	background turquoiseHover
 	
 /*
+ * Cart
+ */
+#cart
+	margin-top 50px
+	
+.bookCart
+	line-height 54px
+	font-size 20px
+
+/*
  * Account
  */
 .buttonAccount
@@ -225,7 +237,14 @@ form li
 
 /*
  * Animation
- */	
+ */
+.patienceScale
+	animation('iteration-count', infinite)
+	animation('delay', 1s)
+	animation('duration', 2s)
+	animation('name', scale)
+	animation('fill-mode', backwards) 
+
 .scale
 	animation('delay', .3s)
 	animation('duration', 2s)

@@ -3,10 +3,17 @@
 {% block main_content %}
 
 	
+<div id="main">
+	<div class="container">
+		<div class="row">
+			<div id="choixAbonnement" class="col-xs-12">
 
-<div class="container">
-	<div class="row">
-		<div id="choixAbonnement" class="col-xs-12">
+			{% if idPayment is not null %}
+				<div class="col-xs-12 alert alert-info">
+			        <p>Votre paiement a été pris en compte via le numéro de paiement <strong>{{ idPayment }}</strong>. L'identifiant de transaction est le <strong>{{ transactId }}</strong></p>
+			    </div>
+			{% endif %}
+
 			{% if app.user.abonnement is not null %}
 				{% if app.user.abonnement == 'mensuel' %}
 					{% set dateFinAbonnement = app.user.dateAbonnement|date_modify("+1 month") %}
@@ -14,7 +21,7 @@
 					{% set dateFinAbonnement = app.user.dateAbonnement|date_modify("+1 year") %}
 				{% endif %}
 				<div class="col-xs-12 alert alert-success">
-			        <p>Félicitations !!! Vous avez un abonnement <strong>{{ abonnement }}</strong>. Il se finira le <strong>{{ dateFinAbonnement|localizeddate('full', 'none', 'fr') }}</strong> ... à 23h59 ;-)</p>
+			        <p>Félicitations !!! Vous avez un abonnement <strong>{{ app.user.abonnement|capitalize }}</strong>. Il se finira le <strong>{{ dateFinAbonnement|localizeddate('full', 'none', 'fr')|capitalize }}</strong> ... à 23h59 ;-)</p>
 			    </div>
 			    <div class="col-xs-12">
 			    	<a href="{{ path('bdloc_app_payment_showcard') }}" class="btn btn-info" id='showCard' title="affiche carte">Afficher ma carte bleue</a>
@@ -23,42 +30,43 @@
 			    	
 			    </div>
 			{% else %}
-		
-			<div id="form" class="col-xs-12 col-md-6">
-				<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_card') }}">
-					{% for flashMessage in app.session.flashbag.get('message') %}
-					
-				    <div class="alert alert-danger">
-				        <p>{{ flashMessage }}</p>
-				    </div>
-					{% endfor %}
-					<div class="radio">
-					  <label>
-					    <input type="radio" name="optionsRadios" id="mensuel" value="mensuel">
-					    Abonnement mensuel
-					  </label>
-					</div>
-					<div class="radio">
-					  <label>
-					    <input type="radio" name="optionsRadios" id="annuel" value="annuel">
-					    Abonnement annuel
-					  </label>
-					</div>
-					<!-- <button type="submit" class="btn btn-success">étape suivante</button> -->	
-				</form>
-				<div id="montantAbonnement">
-					<div class="alert alert-info" role="alert"><span>Aucun montant</span></div>
-				</div>
-			</div>
-			{% endif %}
-
 			
-		</div>
-		   		
-		<div id="button" class="col-xs-12">
-			<a class="retour" href="{{ path('bdloc_app_default_home') }}" title="Accueil">Retour accueil</a>
+				<div id="form" class="col-xs-12 col-md-6">
+					<form id="formAbonnement" method="post" action="{{ path('bdloc_app_payment_card') }}">
+						{% for flashMessage in app.session.flashbag.get('message') %}
+						
+					    <div class="alert alert-danger">
+					        <p>{{ flashMessage }}</p>
+					    </div>
+						{% endfor %}
+						<div class="radio">
+						  <label>
+						    <input type="radio" name="optionsRadios" id="mensuel" value="mensuel">
+						    Abonnement mensuel
+						  </label>
+						</div>
+						<div class="radio">
+						  <label>
+						    <input type="radio" name="optionsRadios" id="annuel" value="annuel">
+						    Abonnement annuel
+						  </label>
+						</div>
+						<!-- <button type="submit" class="btn btn-success">étape suivante</button> -->	
+					</form>
+					<div id="montantAbonnement">
+						<div class="alert alert-info" role="alert"><span>Aucun montant</span></div>
+					</div>
+				</div>
+				{% endif %}
+
+				
+			</div>
+			   		
+			<div id="button" class="col-xs-12">
+				<a class="retour" href="{{ path('bdloc_app_default_home') }}" title="Accueil">Retour accueil</a>
+			</div>
 		</div>
 	</div>
-</div>
+</main>
 
 {% endblock %}

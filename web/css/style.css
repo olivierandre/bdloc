@@ -180,6 +180,16 @@ button {
   background: #1abc9c;
 }
 /*
+ * Cart
+ */
+#cart {
+  margin-top: 50px;
+}
+.bookCart {
+  line-height: 54px;
+  font-size: 20px;
+}
+/*
  * Account
  */
 .buttonAccount {
@@ -231,6 +241,38 @@ form li {
 /*
  * Animation
  */
+.patienceScale {
+  -webkit-animation-iteration-count: infinite;
+  -khtml-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-delay: 1s;
+  -khtml-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+  -webkit-animation-duration: 2s;
+  -khtml-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  -ms-animation-duration: 2s;
+  -o-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-name: scale;
+  -khtml-animation-name: scale;
+  -moz-animation-name: scale;
+  -ms-animation-name: scale;
+  -o-animation-name: scale;
+  animation-name: scale;
+  -webkit-animation-fill-mode: backwards;
+  -khtml-animation-fill-mode: backwards;
+  -moz-animation-fill-mode: backwards;
+  -ms-animation-fill-mode: backwards;
+  -o-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+}
 .scale {
   -webkit-animation-delay: 0.3s;
   -khtml-animation-delay: 0.3s;

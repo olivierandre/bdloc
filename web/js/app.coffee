@@ -65,6 +65,59 @@ class Click
             .afficheCard()
             return false
 
+    submitPaymentSubcription: ->
+        @selector.on "submit", ->
+            new Abonnement($(@))
+            .paySubscription()
+            return false
+
+class ManageAjax
+    constructor: () ->
+        @.start()
+        @.end()
+
+    start: () ->
+        $(document).ajaxStart ->
+            $('#main')
+                .hide
+                    effect: 'slide'
+                    direction: 'left'
+                    easing: 'easeInExpo'
+                    duration: 800
+                    complete: ->
+                        $('<h1>Patience</h1>')
+                        .attr 'id', 'patience'
+                        .attr 'class', 'patienceScale'
+                        .css
+                            'position' : 'absolute'
+                            'top' : '50%'
+                            'width' : '95%'
+                        .appendTo('body')
+                        .show
+                            effect: 'slide'
+                            direction: 'left'
+                            easing: 'easeInExpo' 
+                            duration: 800
+                        .delay(1000)
+
+
+    end: () ->
+        $(document).ajaxComplete -> 
+            $('#patience')
+            .hide
+                effect: 'slide'
+                direction: 'left'
+                easing: 'easeInExpo' 
+                duration: 800
+                complete: ->
+                    $('#main')
+                    .show
+                        effect: 'slide'
+                        direction: 'right'
+                        easing: 'easeInExpo'
+                        duration: 800
+
+
 class Abonnement
     constructor: (@value) ->
 
@@ -76,6 +129,22 @@ class Abonnement
             span.text("Un abonnement annuel permet d’économiser 2 mois : 120€ TTC")
         @.afficheSubmit()
         @.abonnementInHiddenInput(@value)
+
+    paySubscription: ->
+        new ManageAjax();
+        $.ajax
+            url: @value.attr 'action'
+            type: @value.attr 'method'
+            data: @value.serialize()
+            success: (html) ->
+                html = $ html
+                newMain = html.filter '#main'
+                console.log newMain.html()
+                $('#main')
+                .empty()
+                .append(newMain)
+
+                console.log($('#main').html())
 
     afficheSubmit: ->
         form = $('#formAbonnement')
@@ -101,7 +170,7 @@ class Abonnement
                 div
                 .append html
                 .animate
-                    'opacity' : '1'
+                    opacity: 1
 
     afficheCard: ->
         $.ajax
@@ -122,6 +191,9 @@ class Abonnement
                 div.append hfour
                 .append html
                 .appendTo $('#choixAbonnement')
+
+                new Click($('#formPayment'))
+                .submitPaymentSubcription()
     
     abonnementInHiddenInput: (@value) ->
         $('#bancaires').find '#bdloc_appbundle_creditcard_abonnement'
@@ -232,9 +304,9 @@ class Cart
                 new Click(newButton)
                 .buttonCart()
                 addRemove.hide
-                    effect: 'slide',
-                    direction: 'left',
-                    easing: 'easeInExpo', 
+                    effect: 'slide'
+                    direction: 'left'
+                    easing: 'easeInExpo',
                     duration: 800
                     complete: ->
                         $('#cart')
@@ -242,9 +314,9 @@ class Cart
                         addRemove
                         .prepend newButton
                 .show
-                    effect : "slide",
-                    direction :'right',
-                    easing: 'easeInExpo',
+                    effect : "slide"
+                    direction :'right'
+                    easing: 'easeInExpo'
                     duration: 800
 
 $ -> 

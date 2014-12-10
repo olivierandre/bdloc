@@ -168,6 +168,11 @@ class User implements UserInterface
      */
     private $dateAbonnement;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Bdloc\AppBundle\Entity\TransactionAbonnement", mappedBy="user")
+     */
+    private $transaction;
+
 
     /**
      * Get id
@@ -639,5 +644,38 @@ class User implements UserInterface
     public function getDateAbonnement()
     {
         return $this->dateAbonnement;
+    }
+
+    /**
+     * Add transaction
+     *
+     * @param \Bdloc\AppBundle\Entity\TransactionAbonnement $transaction
+     * @return User
+     */
+    public function addTransaction(\Bdloc\AppBundle\Entity\TransactionAbonnement $transaction)
+    {
+        $this->transaction[] = $transaction;
+
+        return $this;
+    }
+
+    /**
+     * Remove transaction
+     *
+     * @param \Bdloc\AppBundle\Entity\TransactionAbonnement $transaction
+     */
+    public function removeTransaction(\Bdloc\AppBundle\Entity\TransactionAbonnement $transaction)
+    {
+        $this->transaction->removeElement($transaction);
+    }
+
+    /**
+     * Get transaction
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
     }
 }

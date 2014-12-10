@@ -1,9 +1,16 @@
 {% extends ':layouts:base.html.twig' %}
 
 {% block main_content %}
-{% for book in books %}
-
-	{{ book.id }} - {{ book.title }}
+	<div class="container">
+		<div class="row">
+		{% for book in books %}
+		<div class="col-xs-12" id="cart">
+			<div class="bookCart">
+				<p>{{ book.id }} - {{ book.title }}</p>
+			</div>
+		</div>
+	</div>
+</div>
 	
 {% endfor %}
 {% endblock %}

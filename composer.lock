@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ddf7a7fc47a153c02fc34a44c7e5919",
+    "hash": "251912da0d214b44b5c31adbef4f890e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1012,12 +1012,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
-                "reference": "bc47413c2afb0919e963b5f00a10477433ea7f3f"
+                "reference": "4c525927092a6b98152b9fb93e825ed41c78c8b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/bc47413c2afb0919e963b5f00a10477433ea7f3f",
-                "reference": "bc47413c2afb0919e963b5f00a10477433ea7f3f",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/4c525927092a6b98152b9fb93e825ed41c78c8b2",
+                "reference": "4c525927092a6b98152b9fb93e825ed41c78c8b2",
                 "shasum": ""
             },
             "require": {
@@ -1052,7 +1052,7 @@
                 "rest",
                 "sdk"
             ],
-            "time": "2014-12-08 23:46:26"
+            "time": "2014-12-10 05:02:21"
         },
         {
             "name": "psr/log",

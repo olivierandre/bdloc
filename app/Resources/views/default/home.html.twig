@@ -5,14 +5,18 @@
 	<div class="container">
 		<div class="row">
 
-		   	{% if (app.user) %}
+		{% if (app.user) %}
 			{% for book in books %}
-				<a href="{{ path('bdloc_app_book_detail', {'id' : book.id }) }}"
-				<a href="{{ asset('detail/covers/'~book.cover) }}" title="{{ book.title }}">{{ book.title }}</a>
+			<div class="col-xs-12">
+				<a href="{{ path('bdloc_app_book_detail', {'id' : book.id }) }}" title="{{ book.title }}">
+					{{ asset('img/covers/'~book.cover) }}<br>
+					<img src="{{ asset('img/covers/'~book.cover) }}">
+					
+				</a>
+			</div>
 			{% endfor %}
 
-
-		   	{% else %}
+		{% else %}
 			<div id="inscription" class="col-xs-12">
 				<a href="{{ path('bdloc_app_user_register') }}">Inscrivez-vous !!!</a>
 		   	</div>
