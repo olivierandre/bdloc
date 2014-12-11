@@ -8,6 +8,7 @@ Init = (function() {
     new Click($('#updateAccountUser')).buttonUpdateProfil();
     new Click($('#formAbonnement input')).focusAbonnement();
     new Click($('#showCard')).buttonShowCard();
+    new Click($('#formFind')).submitFind();
   }
 
   return Init;
@@ -83,6 +84,29 @@ Click = (function() {
     });
   };
 
+  Click.prototype.submitFind = function() {
+    return this.selector.on('submit', function() {
+      var action, illustrator, tab, title;
+      action = $(this).attr('action');
+      tab = $(this).serializeArray();
+      title = 'bdloc_appbundle_book[title]';
+      illustrator = 'bdloc_appbundle_book[illustrator]';
+      action += '/1';
+      $(tab).each(function(index) {
+        var name, value;
+        name = $(this).attr('name');
+        value = $(this).attr('value');
+        if (name === title) {
+          return action += '/' + value;
+        } else if (name === illustrator) {
+          return action += '/' + value;
+        }
+      });
+      $(this).attr('action', action);
+      return console.log($(this).attr('action'));
+    });
+  };
+
   return Click;
 
 })();
@@ -101,16 +125,43 @@ ManageAjax = (function() {
         easing: 'easeInExpo',
         duration: 800,
         complete: function() {
-          return $('<h1>Patience</h1>').attr('id', 'patience').attr('class', 'patienceScale').css({
+          var divMessage, divWait;
+          divMessage = $('<div>').attr('class', 'messageAttente').css({
+            'float': 'left'
+          }).append($('<h1>').attr('class', 'patienceScale').text('patience'));
+          divWait = $('<div>').addClass('wait').css({
+            'marginLeft': '40px',
+            'float': 'left'
+          });
+          $('<div>').attr('class', 'turn').css({
+            'borderRadius': '50%',
+            'width': '80px',
+            'height': '80px',
+            'border': '5px solid #679403',
+            'position': 'absolute',
+            'borderBottomColor': 'transparent'
+          }).appendTo(divWait);
+          $('<div>').attr('class', 'turnReverse').css({
+            'border-radius': '50%',
+            'width': '40px',
+            'height': '40px',
+            'border': '5px solid #679403',
+            'borderTopColor': 'transparent',
+            'position': 'relative',
+            'left': '20px',
+            'top': '20px'
+          }).appendTo(divWait);
+          return $('<div>').attr('id', 'patience').addClass('col-xs-offset-2 col-md-offset-4 col-md-8').css({
             'position': 'absolute',
             'top': '50%',
-            'width': '95%'
-          }).appendTo('body').show({
+            'left': '0%',
+            'width': '100%'
+          }).append(divMessage).append(divWait).appendTo('body').show({
             effect: 'slide',
             direction: 'left',
             easing: 'easeInExpo',
             duration: 800
-          }).delay(1000);
+          });
         }
       });
     });
@@ -128,7 +179,10 @@ ManageAjax = (function() {
             effect: 'slide',
             direction: 'right',
             easing: 'easeInExpo',
-            duration: 800
+            duration: 800,
+            complete: function() {
+              return $('#patience').remove();
+            }
           });
         }
       });
@@ -187,7 +241,7 @@ Abonnement = (function() {
   };
 
   Abonnement.prototype.showInfoCard = function() {
-    return $.ajax({
+    $.ajax({
       url: this.value.attr('href'),
       success: function(html) {
         var div;
@@ -198,6 +252,7 @@ Abonnement = (function() {
         });
       }
     });
+    return $(this.value).fadeOut();
   };
 
   Abonnement.prototype.afficheCard = function() {

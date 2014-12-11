@@ -15,6 +15,9 @@ class Init
         new Click($('#showCard'))
         .buttonShowCard()
 
+        new Click($('#formFind'))
+        .submitFind()
+
 class Click
     constructor: (@selector) ->
 
@@ -71,6 +74,23 @@ class Click
             .paySubscription()
             return false
 
+    submitFind: ->
+        @selector.on 'submit', ->
+            action = $(@).attr 'action'
+            tab = $(@).serializeArray()
+            title = 'bdloc_appbundle_book[title]'
+            illustrator = 'bdloc_appbundle_book[illustrator]'
+            action += '/1'
+            $(tab).each (index) ->
+                name = $(@).attr 'name'
+                value = $(@).attr 'value'
+                if name is title
+                    action += '/' + value
+                else if name is illustrator
+                    action += '/' + value
+            $(@).attr 'action', action
+            console.log $(@).attr 'action'
+
 class ManageAjax
     constructor: () ->
         @.start()
@@ -80,42 +100,86 @@ class ManageAjax
         $(document).ajaxStart ->
             $('#main')
                 .hide
-                    effect: 'slide'
-                    direction: 'left'
-                    easing: 'easeInExpo'
-                    duration: 800
-                    complete: ->
-                        $('<h1>Patience</h1>')
-                        .attr 'id', 'patience'
-                        .attr 'class', 'patienceScale'
+                    effect      : 'slide'
+                    direction   : 'left'
+                    easing      : 'easeInExpo'
+                    duration    : 800
+                    complete    : ->
+                        divMessage = $('<div>')
+                        .attr 'class', 'messageAttente'
                         .css
-                            'position' : 'absolute'
-                            'top' : '50%'
-                            'width' : '95%'
+                            'float'             : 'left'
+                        .append(
+                            $('<h1>')
+                            .attr 'class', 'patienceScale'
+                            .text 'patience'
+                        )
+
+                        divWait = $('<div>')
+                        .addClass 'wait'
+                        .css
+                            'marginLeft'        : '40px'
+                            'float'             : 'left'
+
+                        $('<div>')
+                        .attr 'class', 'turn'
+                        .css
+                            'borderRadius'      : '50%'
+                            'width'             : '80px'
+                            'height'            : '80px'
+                            'border'            : '5px solid #679403'
+                            'position'          : 'absolute'
+                            'borderBottomColor' : 'transparent'
+                        .appendTo divWait
+
+                        $('<div>')
+                        .attr 'class', 'turnReverse'
+                        .css
+                            'border-radius'     : '50%'
+                            'width'             : '40px'
+                            'height'            : '40px'
+                            'border'            : '5px solid #679403'
+                            'borderTopColor'    : 'transparent'
+                            'position'          : 'relative'
+                            'left'              : '20px'
+                            'top'               : '20px'
+                        .appendTo divWait
+
+                        $('<div>')
+                        .attr 'id', 'patience'
+                        .addClass 'col-xs-offset-2 col-md-offset-4 col-md-8'
+                        .css
+                            'position'  : 'absolute'
+                            'top'       : '50%'
+                            'left'      : '0%'
+                            'width'     : '100%'
+                        .append(divMessage)
+                        .append(divWait)
                         .appendTo('body')
                         .show
-                            effect: 'slide'
-                            direction: 'left'
-                            easing: 'easeInExpo' 
-                            duration: 800
-                        .delay(1000)
-
+                            effect      : 'slide'
+                            direction   : 'left'
+                            easing      : 'easeInExpo' 
+                            duration    : 800
 
     end: () ->
         $(document).ajaxComplete -> 
             $('#patience')
             .hide
-                effect: 'slide'
-                direction: 'left'
-                easing: 'easeInExpo' 
-                duration: 800
-                complete: ->
+                effect      : 'slide'
+                direction   : 'left'
+                easing      : 'easeInExpo' 
+                duration    : 800
+                complete    : ->
                     $('#main')
                     .show
-                        effect: 'slide'
-                        direction: 'right'
-                        easing: 'easeInExpo'
-                        duration: 800
+                        effect      : 'slide'
+                        direction   : 'right'
+                        easing      : 'easeInExpo'
+                        duration    : 800
+                        complete    : ->
+                            $('#patience')
+                            .remove()
 
 
 class Abonnement
@@ -171,6 +235,8 @@ class Abonnement
                 .append html
                 .animate
                     opacity: 1
+        $(@value)
+        .fadeOut()
 
     afficheCard: ->
         $.ajax

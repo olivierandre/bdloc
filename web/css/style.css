@@ -142,6 +142,13 @@ button {
   animation-fill-mode: backwards;
 }
 /*
+ * Recherche
+ */
+.checkbox {
+  display: inline-block !important;
+  width: 25%;
+}
+/*
  * Detail
  */
 .detail {
@@ -218,6 +225,37 @@ button {
 .afficheCarte {
   opacity: 0;
 }
+/*#patience {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+}
+.messageAttente,
+.wait {
+  float: left;
+}
+.wait {
+  margin-left: 40px;
+}
+.circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border: 5px solid #679403;
+  position: absolute;
+  border-bottom-color: transparent;
+}
+.littleCircle {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 5px solid #679403;
+  border-top-color: transparent;
+  position: relative;
+  left: 20px;
+  top: 20px;
+}*/
 /*
  * Formulaire
  */
@@ -241,6 +279,82 @@ form li {
 /*
  * Animation
  */
+.turn {
+  -webkit-animation-iteration-count: infinite;
+  -khtml-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-delay: 1s;
+  -khtml-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+  -webkit-animation-duration: 2s;
+  -khtml-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  -ms-animation-duration: 2s;
+  -o-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-name: turn;
+  -khtml-animation-name: turn;
+  -moz-animation-name: turn;
+  -ms-animation-name: turn;
+  -o-animation-name: turn;
+  animation-name: turn;
+  -webkit-animation-fill-mode: backwards;
+  -khtml-animation-fill-mode: backwards;
+  -moz-animation-fill-mode: backwards;
+  -ms-animation-fill-mode: backwards;
+  -o-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+  -webkit-animation-timing-function: linear;
+  -khtml-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -ms-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.turnReverse {
+  -webkit-animation-iteration-count: infinite;
+  -khtml-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-delay: 1s;
+  -khtml-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+  -webkit-animation-duration: 1s;
+  -khtml-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-name: turnReverse;
+  -khtml-animation-name: turnReverse;
+  -moz-animation-name: turnReverse;
+  -ms-animation-name: turnReverse;
+  -o-animation-name: turnReverse;
+  animation-name: turnReverse;
+  -webkit-animation-fill-mode: backwards;
+  -khtml-animation-fill-mode: backwards;
+  -moz-animation-fill-mode: backwards;
+  -ms-animation-fill-mode: backwards;
+  -o-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+  -webkit-animation-timing-function: linear;
+  -khtml-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -ms-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
 .patienceScale {
   -webkit-animation-iteration-count: infinite;
   -khtml-animation-iteration-count: infinite;
@@ -298,6 +412,134 @@ form li {
   -ms-animation-fill-mode: backwards;
   -o-animation-fill-mode: backwards;
   animation-fill-mode: backwards;
+}
+@-moz-keyframes turn {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -khtml-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -ms-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+  }
+}
+@-webkit-keyframes turn {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -khtml-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -ms-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+  }
+}
+@-o-keyframes turn {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -khtml-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -ms-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+  }
+}
+@keyframes turn {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -khtml-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -ms-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+  }
+}
+@-moz-keyframes turnReverse {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-1080deg);
+    -khtml-transform: rotate(-1080deg);
+    -moz-transform: rotate(-1080deg);
+    -ms-transform: rotate(-1080deg);
+    -o-transform: rotate(-1080deg);
+  }
+}
+@-webkit-keyframes turnReverse {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-1080deg);
+    -khtml-transform: rotate(-1080deg);
+    -moz-transform: rotate(-1080deg);
+    -ms-transform: rotate(-1080deg);
+    -o-transform: rotate(-1080deg);
+  }
+}
+@-o-keyframes turnReverse {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-1080deg);
+    -khtml-transform: rotate(-1080deg);
+    -moz-transform: rotate(-1080deg);
+    -ms-transform: rotate(-1080deg);
+    -o-transform: rotate(-1080deg);
+  }
+}
+@keyframes turnReverse {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -khtml-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-1080deg);
+    -khtml-transform: rotate(-1080deg);
+    -moz-transform: rotate(-1080deg);
+    -ms-transform: rotate(-1080deg);
+    -o-transform: rotate(-1080deg);
+  }
 }
 @-moz-keyframes inscription {
   0% {

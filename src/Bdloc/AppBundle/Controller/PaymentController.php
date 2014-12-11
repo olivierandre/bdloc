@@ -57,6 +57,7 @@ class PaymentController extends Controller
                 }
                 //  On vérifie si l'utilisateur a déjà une carte
                 $cardUser = $doctrine->getRepository('BdlocAppBundle:CreditCard')->findOneByUser($user);
+                $em = $doctrine->getManager();
 
                 if(!empty($cardUser)) {
                     try {
@@ -67,6 +68,7 @@ class PaymentController extends Controller
                         //  si ça casse, on redirige
                     }
                 } else {
+                    // La carte existe pas, on fait le nécessaire + enregistrement BDD
                     // ### CreditCard
                     // A resource representing a credit card that can be
                     // used to fund a payment.
@@ -93,6 +95,7 @@ class PaymentController extends Controller
                     }
                     
                     $card->setLast_name(substr($chaine, 0, strlen($chaine) - 1));
+                    $em->persist($user);
                 }
                 
                 // ### FundingInstrument
@@ -182,10 +185,8 @@ class PaymentController extends Controller
                 $user->setAbonnement($abonnement);
                 $user->setDateAbonnement(new \DateTime);
 
-                $em = $doctrine->getManager();
                 $em->persist($transactionAbonnement);
                 $em->persist($creditCard);
-                $em->persist($user);
                 $em->flush();
 
                 $params['idPayment'] = $idPayment;

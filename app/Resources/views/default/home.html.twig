@@ -6,7 +6,7 @@
 		<div class="row">
 
 		{% if (app.user) %}
-			{% for book in books %}
+			{# {% for book in books %}
 			<div class="col-xs-12">
 				<a href="{{ path('bdloc_app_book_detail', {'id' : book.id }) }}" title="{{ book.title }}">
 					{{ asset('img/covers/'~book.cover) }}<br>
@@ -14,7 +14,8 @@
 					
 				</a>
 			</div>
-			{% endfor %}
+			{% endfor %} #}
+			<a href="{{ path('bdloc_app_catalog_showcatalog') }}">Montrer le catalogue</a>
 
 		{% else %}
 			<div id="inscription" class="col-xs-12">

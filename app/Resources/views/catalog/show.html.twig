@@ -1,0 +1,32 @@
+{% extends ':layouts:base.html.twig' %}
+
+{% block main_content %}
+
+	<div class="container">
+		<div class="row">
+		{% if (app.user) %}
+			<div class='col-xs-12'>
+				<h1>Notre catalogue</h1>
+			</div>
+
+
+			<div class='col-xs-12' id="lookingFor">
+				{{ form(bookForm, {'attr' : {'id' : 'formFind' }, 'action' : url('bdloc_app_catalog_showcatalog') } ) }}
+			</div>
+
+			<div class='col-xs-12' if='result'>
+				{# {% if book is not null %}
+					{{ book.title }}
+				{% endif %} #}
+			</div>
+
+		{% else %}
+			<div id="inscription" class="col-xs-12">
+				<a href="{{ path('bdloc_app_user_register', true) }}">Inscrivez-vous !!!</a>
+		   	</div>
+			{% endif %}
+			
+		</div>
+	</div>
+
+{% endblock %}
