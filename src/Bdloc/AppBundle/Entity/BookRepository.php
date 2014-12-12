@@ -34,7 +34,20 @@ class BookRepository extends EntityRepository {
             ->setParameter(':id', $id)
             ->getQuery();
 
-            return $query->getSingleResult();
+        return $query->getSingleResult();
+    }
+
+    public function getLooking($title, $author) {
+        $query = $this->createQueryBuilder('book')
+            ->addSelect('illustrator')
+            ->leftjoin('book.illustrator', 'illustrator')
+            ->where('book.title LIKE :title')
+            ->andWhere('illustrator.lastName LIKE :author')
+            ->setParameter('title', $title)
+            ->setParameter('author', $author)
+            ->getQuery();
+
+        return $query->getResult();
     }
 
 }

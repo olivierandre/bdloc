@@ -78,18 +78,47 @@ class Click
         @selector.on 'submit', ->
             action = $(@).attr 'action'
             tab = $(@).serializeArray()
+            link = ''
             title = 'bdloc_appbundle_book[title]'
             illustrator = 'bdloc_appbundle_book[illustrator]'
+            serie = 'bdloc_appbundle_book[serie][]'
+            len = tab.length
+
             action += '/1'
             $(tab).each (index) ->
                 name = $(@).attr 'name'
                 value = $(@).attr 'value'
+
+                if value is ""
+                    console.log 'vide'
+                else 
+                    console.log 'pas vide'
+
                 if name is title
-                    action += '/' + value
+                    if value is ""
+                        action += '/all' + value
+                    else
+                        action += '/' + value
                 else if name is illustrator
-                    action += '/' + value
+                    if value is ""
+                        action += '/all' + value
+                    else
+                        action += '/' + value
+                else if name is serie
+                    selector = '#bdloc_appbundle_book_serie_' + value
+                    texte = $(selector)
+                    .parent()
+                    .text()
+                    .trim()
+
+                    if index is len - 2
+                        link += texte
+                    else
+                        link += texte + '-'
+
+            if link isnt ""
+                action += '/' + link
             $(@).attr 'action', action
-            console.log $(@).attr 'action'
 
 class ManageAjax
     constructor: () ->
@@ -369,20 +398,15 @@ class Cart
                 newButton = html.find '#cart'
                 new Click(newButton)
                 .buttonCart()
-                addRemove.hide
-                    effect: 'slide'
-                    direction: 'left'
-                    easing: 'easeInExpo',
-                    duration: 800
+
+                addRemove.fadeOut
+                    duration    : 800
                     complete: ->
                         $('#cart')
                         .remove()
                         addRemove
                         .prepend newButton
-                .show
-                    effect : "slide"
-                    direction :'right'
-                    easing: 'easeInExpo'
+                .fadeIn
                     duration: 800
 
 $ -> 

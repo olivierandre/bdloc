@@ -3,23 +3,30 @@
 {% block main_content %}
 	<div class="container">
 		<div class="row">
-			{# <div id="patience" class='col-xs-offset-2 col-md-offset-4 col-md-8'>
-				<div class='messageAttente'>
-					<h1>patience</h1>
-				</div>
-				<div class="wait">
-					<div class="circle turn"></div>
-					<div class="littleCircle turnReverse"></div>
-				</div>
-			</div> #}
-		{% for book in books %}
-		<div class="col-xs-12" id="cart">
-			<div class="bookCart">
-				<p>{{ book.id }} - {{ book.title }}</p>
+			<div class="col-xs-12" id="cart">
+				<h1>Votre panier</h1>
+				{% if books is defined %}
+				<table class='table'>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Titre</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for book in books %}
+						<tr>
+							<td>{{ book.id }}</td>
+							<td>{{ book.title }}</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+				{% endif %}
 			</div>
+
 		</div>
 	</div>
 </div>
 	
-{% endfor %}
 {% endblock %}

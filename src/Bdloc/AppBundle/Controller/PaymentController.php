@@ -63,9 +63,12 @@ class PaymentController extends Controller
                     try {
                         $card = CreditCard::get($cardUser->getPaypalid(), $apiContext);
                     } catch (Exception $ex) {
-                        ResultPrinter::printError("Get Credit Card", "Credit Card", $cardUser->getPaypalid(), null, $ex);
-                        exit(1);
+                        //ResultPrinter::printError("Get Credit Card", "Credit Card", $cardUser->getPaypalid(), null, $ex);
+                        //exit(1);
                         //  si ça casse, on redirige
+                        $params['errors'] = $error;
+                        $params['errorPaypal'] = "Erreur lors de la récupération de la carte via le service Paypal";
+                        return $this->ErrorTransactionAction($params);
                     }
                 } else {
                     // La carte existe pas, on fait le nécessaire + enregistrement BDD

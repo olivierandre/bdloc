@@ -25,6 +25,7 @@ class BookController extends Controller
 
         $params['book'] = $book;
         $params['bool'] = $bool;
+        $params['referer'] = $this->getRequest()->headers->get('referer');
 
         return $this->render("book/detail.html.twig", $params);
     }

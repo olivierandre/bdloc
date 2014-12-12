@@ -86,24 +86,50 @@ Click = (function() {
 
   Click.prototype.submitFind = function() {
     return this.selector.on('submit', function() {
-      var action, illustrator, tab, title;
+      var action, illustrator, len, link, serie, tab, title;
       action = $(this).attr('action');
       tab = $(this).serializeArray();
+      link = '';
       title = 'bdloc_appbundle_book[title]';
       illustrator = 'bdloc_appbundle_book[illustrator]';
+      serie = 'bdloc_appbundle_book[serie][]';
+      len = tab.length;
       action += '/1';
       $(tab).each(function(index) {
-        var name, value;
+        var name, selector, texte, value;
         name = $(this).attr('name');
         value = $(this).attr('value');
+        if (value === "") {
+          console.log('vide');
+        } else {
+          console.log('pas vide');
+        }
         if (name === title) {
-          return action += '/' + value;
+          if (value === "") {
+            return action += '/all' + value;
+          } else {
+            return action += '/' + value;
+          }
         } else if (name === illustrator) {
-          return action += '/' + value;
+          if (value === "") {
+            return action += '/all' + value;
+          } else {
+            return action += '/' + value;
+          }
+        } else if (name === serie) {
+          selector = '#bdloc_appbundle_book_serie_' + value;
+          texte = $(selector).parent().text().trim();
+          if (index === len - 2) {
+            return link += texte;
+          } else {
+            return link += texte + '-';
+          }
         }
       });
-      $(this).attr('action', action);
-      return console.log($(this).attr('action'));
+      if (link !== "") {
+        action += '/' + link;
+      }
+      return $(this).attr('action', action);
     });
   };
 
@@ -397,19 +423,13 @@ Cart = (function() {
         $(panier).text(cart);
         newButton = html.find('#cart');
         new Click(newButton).buttonCart();
-        return addRemove.hide({
-          effect: 'slide',
-          direction: 'left',
-          easing: 'easeInExpo',
+        return addRemove.fadeOut({
           duration: 800,
           complete: function() {
             $('#cart').remove();
             return addRemove.prepend(newButton);
           }
-        }).show({
-          effect: "slide",
-          direction: 'right',
-          easing: 'easeInExpo',
+        }).fadeIn({
           duration: 800
         });
       }

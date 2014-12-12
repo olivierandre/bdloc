@@ -13,7 +13,7 @@ class CatalogController extends Controller
 {
     /**
      * @Route("/catalogue/{page}/{title}/{author}/{series}/{dispo}", 
-     * defaults={"page" = 1, "title" = "", "author" : "", "series" : "all", "dispo":true}, 
+     * defaults={"page" = 1, "title" = "all", "author" : "all", "series" : "all", "dispo":true}, 
      * requirements={"page": "\d+"})
      */
     public function showCatalogAction(Request $request, $page, $title, $author, $series, $dispo)
@@ -26,7 +26,6 @@ class CatalogController extends Controller
 
         //  Création du formulaire
         $book = new Book();
-
         $bookForm = $this->createForm(new BookType, $book);
         $bookForm->handleRequest($request);
 
@@ -34,52 +33,32 @@ class CatalogController extends Controller
             // Récupération du titre indiqué
             $title = $bookForm->get('title')->getData();
             $author = $bookForm->get('illustrator')->getData();
-            $series = $bookForm->get('serie')->getData();
-            $bookRepository = $this->getDoctrine()->getRepository('BdlocAppBundle:Book');
-            $book = $bookRepository->findOneByTitle($title);
-
-            $lenSeries = count($series);
+            $title = $this->likeParameter($title);
+            $author = $this->likeParameter($author);
             
-            foreach($series as $key => $s) {
+            $series = $bookForm->get('serie')->getData();
 
-                if($key === $lenSeries - 1) {
-                    $serie .= $s->getStyle();
-                } else {
-                    $serie .= $s->getStyle()."-";
-                }
-                
-            }
-
-            // return $this->redirect($this->generateUrl('bdloc_app_catalog_showcatalog', array(
-            //     'page' => $page,
-            //     'title' => $title,
-            //     'author' => $author
-            //     )
-            // ));
+        } else {
+            $title = $this->likeParameter($title);
+            $author = $this->likeParameter($author);
         }
-        
-        // if(!empty($_GET['limit'])) {
-        //     $limit = $_GET['limit'];
-        // }
 
-        $pagination = ($limit - 1) * $numberPerPage;
-        // $totalQuestions = getAllQuestions();
+        $bookRepository = $this->getDoctrine()->getRepository('BdlocAppBundle:Book');
+        $books = $bookRepository->getLooking($title, $author);
 
-        // $totalQuestions = ceil($totalQuestions/$numberPerPage);
-
-        // $book = new Book();
-
-        // $bookRepository = $this->getDoctrine()->getRepository('BdlocAppBundle:Book');
-        // $books = $bookRepository->findAll();
-
-        // $params['books'] = $books;
-
-
-        //die();
-
+        $params['books'] = $books;
         $params['bookForm'] = $bookForm->createView();
 
         return $this->render('catalog\show.html.twig', $params);
+    }
+
+    public function likeParameter($data) {
+        if($data !== 'all') {
+                $data = '%'.$data.'%';
+            } else {
+                $data = '%%';
+            }
+            return $data;
     }
 
 }
